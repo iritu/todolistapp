@@ -8,3 +8,8 @@
   font-size: 18px;
   justify-content: space-between;
 }
+
+.footerBtn{
+  margin-left:1%;
+  margin-top:2%;
+}

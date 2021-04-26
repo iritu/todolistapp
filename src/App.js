@@ -26,6 +26,8 @@ function App() {
   function addTodo(text){
     const newTodos = [...todos, { text }];
     setTodos(newTodos);
+
+    console.log(todos);
   }
 
   /***Mark item as done - ***
@@ -106,6 +108,30 @@ function App() {
   }
 
 
+  function filterArray(e, action){
+    
+    //it works but it changes the original array so the buttons
+    //cannot work one after the other as filter gives back 
+    //everytime just part of the array 
+
+    const newFilterTodos = [...todos];
+    //all
+    if (action === 1){
+      setTodos(todos);
+    }
+
+    //active
+    if (action === 2){
+      setTodos (newFilterTodos.filter(item => item.isDone !== true));
+    }
+
+    //completed
+    if (action === 3){
+      setTodos (newFilterTodos.filter(item => item.isDone === true));
+    }
+     
+  }
+
 /*
   For each todo in the todos.map, pass the Todo component. 
   Pass it the  index, todo(), markTodo() and removeTodo() functions.
@@ -131,6 +157,21 @@ function App() {
             </Card.Body>
           </Card>
         ))}
+      </div>
+
+      <div>
+        <button type="button" 
+            className="btn btn-outline-secondary footerBtn"
+            onClick={e=> filterArray(e, 1)} > All</button>
+          
+        <button type="button" 
+            className="btn btn-outline-secondary footerBtn"
+            onClick={e=> filterArray(e, 2)}>Active</button>
+
+        <button type="button" 
+            className="btn btn-outline-secondary footerBtn"
+            onClick={e=> filterArray(e, 3)} > Completed </button>
+         
       </div>
     </div>
   </div>

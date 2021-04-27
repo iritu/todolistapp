@@ -3,16 +3,19 @@ import './App.css';
 import React from "react";
 import { useState } from 'react';
 import "./App.css";
-import { Button, Card, Container } from 'react-bootstrap';
+import {Button,  Card, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 //for nice icons, npm install react-icons
 //using: https://www.npmjs.com/package/react-icons
 import { RiDeleteBinLine } from 'react-icons/ri'; 
 import { BsCheckBox } from 'react-icons/bs';
 
-//local imports
+
+//local components imports
 import FormTodo from './components/FormToDo';
+//import Todo from './components/ToDoItem';
 
 
 
@@ -51,6 +54,7 @@ function App() {
     setTodos(newTodos);
 
     setsaveOrigArray(origArr);
+    
     //console.log(todos);
 
   }
@@ -77,7 +81,7 @@ function App() {
   function  removeTodo (index){
     const newTodos = [...todos];
    
-    if (todos[index].isDone === false || todos[index].isDone === '' ){
+    if (todos[index].isDone === false || todos[index].isDone === undefined ){
       alert("This item is not done yet, if you want to delete an item you should mark it as 'Done' before, using the green check mark");
     }
     else{
@@ -88,19 +92,17 @@ function App() {
     }
   } 
 
-
-  
   /*
    Todo component. Displays the list of items. 
    Accepts the four parameters as props(called from main App)
    Show buttons for marking items as Done and for removing an item.
   */
-  function Todo({ todo, index, markTodo, removeTodo }) {
+   function Todo({ todo, index, markTodo, removeTodo }) {
     return (
       <div className="todo">
           <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
           <div>
-              <Button variant="outline-success" onClick={() => markTodo(index)}><BsCheckBox/></Button>{' '} 
+              <Button variant="outline-success" onClick={() => markTodo(index)}><BsCheckBox/></Button>{' '}  
               <Button variant="outline-danger" onClick={() => removeTodo(index)}><RiDeleteBinLine/></Button>
         </div>
       </div>

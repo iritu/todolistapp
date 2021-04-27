@@ -3,9 +3,13 @@ import './App.css';
 import React from "react";
 import { useState } from 'react';
 import "./App.css";
-import { Button, Card, Form } from 'react-bootstrap';
+import { Button, Card, Container, Form } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+//for nice icons, npm install react-icons
+//using: https://www.npmjs.com/package/react-icons
+import { RiDeleteBinLine } from 'react-icons/ri'; 
+import { BsCheckBox } from 'react-icons/bs';
 
 
 function App() {
@@ -19,14 +23,30 @@ function App() {
     }
   ]);
 
+  const [saveOrigArray, setsaveOrigArray] = useState([
+    {
+      text: "Sample item...",
+      isDone: false
+    }
+  ]);
+
+
+
+
   //Define short functions to : add, mark, delete items from the todos[] array  
 
   //1. Add the new todo[] text to the array using spread operator.
   function addTodo(text){
-
+    //the array that is dynmically worked on 
     const newTodos = [...todos, { text }];
+
+    //set a copy of it that will not be changed after filters and
+    //is used by "all" button.
+    let origArr = [...todos, { text }];
+
     setTodos(newTodos);
 
+    setsaveOrigArray(origArr);
     //console.log(todos);
 
   }
@@ -59,13 +79,16 @@ function App() {
     else{
       newTodos.splice(index, 1);
       setTodos(newTodos);
+
+      setsaveOrigArray(newTodos);
     }
   } 
 
 
   
   /*
-   Todo component. It accepts the four parameters as props(called from main App)
+   Todo component. Displays the list of items. 
+   Accepts the four parameters as props(called from main App)
    Show buttons for marking items as Done and for removing an item.
   */
   function Todo({ todo, index, markTodo, removeTodo }) {
@@ -73,8 +96,8 @@ function App() {
       <div className="todo">
           <span style={{ textDecoration: todo.isDone ? "line-through" : "" }}>{todo.text}</span>
           <div>
-              <Button variant="outline-success" onClick={() => markTodo(index)}>✓</Button>{' '}
-              <Button variant="outline-danger" onClick={() => removeTodo(index)}>✕</Button>
+              <Button variant="outline-success" onClick={() => markTodo(index)}><BsCheckBox/></Button>{' '} 
+              <Button variant="outline-danger" onClick={() => removeTodo(index)}><RiDeleteBinLine/></Button>
         </div>
       </div>
     );
@@ -98,20 +121,23 @@ function App() {
     }
   
     return (
+     
       <Form onSubmit={handleSubmit}> 
       
       <Form.Group>
-        <Form.Label><b>Add Todo</b></Form.Label>
-        <Form.Control type="text" className="input" 
+        <Form.Label><h4>Add Todo</h4></Form.Label>
+        <br/>
+        <Form.Control type="text" id="customInput"  
             value={value} 
             onChange={e => setValue(e.target.value)} 
             placeholder="Whats Next?" />
+             <Button variant="primary mb-3" type="submit">
+              Add Item
+            </Button>
       </Form.Group>
-      
-      <Button variant="primary mb-3" type="submit">
-        Submit
-      </Button>
     </Form>
+
+   
     );
   }
 
@@ -123,9 +149,10 @@ function App() {
     //everytime just part of the array 
 
     const newFilterTodos = [...todos];
+    
     //all
     if (action === 1){
-      setTodos(todos);
+      setTodos(saveOrigArray);
     }
 
     //active
@@ -151,7 +178,7 @@ function App() {
       
       <FormTodo addTodo={addTodo} />
       
-      <div>
+      <div className="itemsList">
         {todos.map((todo, index) => (
           <Card>
             <Card.Body>

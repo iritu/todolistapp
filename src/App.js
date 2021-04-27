@@ -3,13 +3,17 @@ import './App.css';
 import React from "react";
 import { useState } from 'react';
 import "./App.css";
-import { Button, Card, Container, Form } from 'react-bootstrap';
+import { Button, Card, Container } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 //for nice icons, npm install react-icons
 //using: https://www.npmjs.com/package/react-icons
 import { RiDeleteBinLine } from 'react-icons/ri'; 
 import { BsCheckBox } from 'react-icons/bs';
+
+//local imports
+import FormTodo from './components/FormToDo';
+
 
 
 function App() {
@@ -105,42 +109,6 @@ function App() {
 
 
 
-/*
-  FormTodo component : accepts the addTodo() as a parameter.
-  Handles the submission of a new item. 
-  Submit : add item to array.
-*/
-  function FormTodo({ addTodo }) {
-    const [value, setValue] = useState("");
-  
-    function handleSubmit(e){
-      e.preventDefault();   
-      if (!value) return;   //if valus is empty 
-      addTodo(value);       //call addTodo() function with the current value
-      setValue("");         //clear value
-    }
-  
-    return (
-     
-      <Form onSubmit={handleSubmit}> 
-      
-      <Form.Group>
-        <Form.Label><h4>Add Todo</h4></Form.Label>
-        <br/>
-        <Form.Control type="text" id="customInput"  
-            value={value} 
-            onChange={e => setValue(e.target.value)} 
-            placeholder="Whats Next?" />
-             <Button variant="primary mb-3" type="submit">
-              Add Item
-            </Button>
-      </Form.Group>
-    </Form>
-
-   
-    );
-  }
-
 
   function filterArray(e, action){
     
@@ -173,7 +141,7 @@ function App() {
 */  
   return (
     <div className="app">
-    <div className="container">
+    <Container>
       <h1 className="text-center mb-4">Todo List</h1>
       
       <FormTodo addTodo={addTodo} />
@@ -208,7 +176,7 @@ function App() {
             onClick={e=> filterArray(e, 3)} > Completed </button>
          
       </div>
-    </div>
+    </Container>
   </div>
   );
 }

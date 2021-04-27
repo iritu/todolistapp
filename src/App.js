@@ -19,15 +19,16 @@ function App() {
     }
   ]);
 
-
   //Define short functions to : add, mark, delete items from the todos[] array  
 
   //1. Add the new todo[] text to the array using spread operator.
   function addTodo(text){
+
     const newTodos = [...todos, { text }];
     setTodos(newTodos);
 
-    console.log(todos);
+    //console.log(todos);
+
   }
 
   /***Mark item as done - ***
@@ -45,13 +46,20 @@ function App() {
   /***Delete item ****
   3. Get the index of the item . 
      Define new array using the spread operator.
-     Splice the array and remove the item  whose index matches the index parameter
+     Splice the array and remove the item  which index matches the index parameter
+     Make an alert in case the item is in status 'false' or empty 
      Set the newTodos as todos[] using setTodos (useState function).
   */
   function  removeTodo (index){
     const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+   
+    if (todos[index].isDone === false || todos[index].isDone === '' ){
+      alert("This item is not done yet, if you want to delete an item you should mark it as 'Done' before, using the green check mark");
+    }
+    else{
+      newTodos.splice(index, 1);
+      setTodos(newTodos);
+    }
   } 
 
 

@@ -26,7 +26,7 @@ function FormTodo({ addTodo }) {
         <Form.Control type="text" id="customInput"  
             value={value} 
             onChange={e => setValue(e.target.value)} 
-            placeholder="Whats Next?" />
+            placeholder="Enter a new item" />
              <Button variant="primary mb-3" type="submit">
               Add Item
             </Button>

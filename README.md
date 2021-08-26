@@ -5,7 +5,7 @@ create-react-app
 <br/>
 react-bootstrap for convinieant, easy design.
 <br/>
-react-icons fir icons.
+react-icons for icons.
 <br/>
 A project done during front end REACT course.
 Used functional component with props.

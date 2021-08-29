@@ -143,7 +143,7 @@ function App() {
   return (
     <div className="app">
     <Container>
-      <h1 className="text-center mb-4">Todo List</h1>
+      <h1 className="text-center mb-4">Todo Demo App</h1>
       
       <FormTodo addTodo={addTodo} />
       

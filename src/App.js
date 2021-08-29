@@ -1,5 +1,3 @@
-import './App.css';
-
 import React from "react";
 import { useState } from 'react';
 import "./App.css";
@@ -55,8 +53,6 @@ function App() {
 
     setsaveOrigArray(origArr);
     
-    //console.log(todos);
-
   }
 
   /***Mark item as done - ***
@@ -113,25 +109,28 @@ function App() {
 
 
   function filterArray(e, action){
-    
+    setTodos(saveOrigArray);
+
     //it works but it changes the original array so the buttons
     //cannot work one after the other as filter gives back 
     //everytime just part of the array 
 
-    const newFilterTodos = [...todos];
-    
+    let newFilterTodos = [...todos];
+  
     //all
     if (action === 1){
       setTodos(saveOrigArray);
     }
 
     //active
-    if (action === 2){
-      setTodos (newFilterTodos.filter(item => item.isDone !== true));
+    else if (action === 2){
+      newFilterTodos = [...saveOrigArray]; //reset array after filter otherwise we get empty results
+      setTodos (newFilterTodos.filter(item => item.isDone !== true  ));
     }
 
     //completed
-    if (action === 3){
+    else if (action === 3){
+      newFilterTodos = [...saveOrigArray]; 
       setTodos (newFilterTodos.filter(item => item.isDone === true));
     }
      
